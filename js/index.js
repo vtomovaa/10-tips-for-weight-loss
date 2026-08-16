@@ -26,37 +26,43 @@ dropdownLinks.forEach(link => {
 });
 
 
-// faq
+// FAQ
+const faqItems = document.querySelectorAll(".faq-content");
 
-let faqItems = document.querySelectorAll(".faq-content");
+function setFaqState(item, isOpen) {
+  item.classList.toggle("active", isOpen);
 
-const onClickFaq = (e) => {
-  const answer = e.currentTarget.querySelector(".a");
-  const symbol = e.currentTarget.querySelector(".toggle-symbol");
+  const question = item.querySelector(".q");
+  if (question) {
+    question.setAttribute("aria-expanded", String(isOpen));
+  }
+}
 
-  // Close all other answers
-  faqItems.forEach(item => {
-    const itemAnswer = item.querySelector(".a");
-    const itemSymbol = item.querySelector(".toggle-symbol");
-    if (itemAnswer !== answer) {
-      itemAnswer.style.display = "none";
-      itemSymbol.textContent = "+";
+faqItems.forEach((item) => {
+  const question = item.querySelector(".q");
+  if (!question) return;
+
+  question.setAttribute("role", "button");
+  question.setAttribute("tabindex", "0");
+  question.setAttribute("aria-expanded", "false");
+
+  const toggleFaq = () => {
+    const shouldOpen = !item.classList.contains("active");
+
+    faqItems.forEach((faqItem) => setFaqState(faqItem, false));
+
+    if (shouldOpen) {
+      setFaqState(item, true);
+    }
+  };
+
+  question.addEventListener("click", toggleFaq);
+  question.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleFaq();
     }
   });
-
-  // Toggle the clicked answer
-  if (answer.style.display === "none" || answer.style.display === "") {
-    answer.style.display = "block";
-    symbol.textContent = "-";
-  } else {
-    answer.style.display = "none";
-    symbol.textContent = "+";
-  }
-
-};
-
-faqItems.forEach(item => {
-  item.addEventListener("click", onClickFaq);
 });
 
 // Sidebar form popup
@@ -102,20 +108,28 @@ window.addEventListener('click', (e) => {
 });
 
 
-// colored scroll
+// Highlight the current tip while scrolling
+const sections = [...document.querySelectorAll('.col-2 h3[id^="tip"]')];
+const navLinks = [...document.querySelectorAll(".nav-link")];
 
-window.addEventListener("scroll", function () {
-  const sections = document.querySelectorAll("h3"); // All the sections with the h3 tags (your tips)
-  const navLinks = document.querySelectorAll(".nav-link"); // All navigation links
+function updateActiveNavigation() {
+  if (!sections.length || !navLinks.length) return;
 
-  sections.forEach((section, index) => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
-      // Add the 'active' class to the corresponding li
-      navLinks[index].parentElement.classList.add("active");
-    } else {
-      // Remove the 'active' class if it's not in view
-      navLinks[index].parentElement.classList.remove("active");
+  const activationLine = 180;
+  let currentId = sections[0].id;
+
+  sections.forEach((section) => {
+    if (section.getBoundingClientRect().top <= activationLine) {
+      currentId = section.id;
     }
   });
-});
+
+  navLinks.forEach((link) => {
+    const isActive = link.getAttribute("href") === `#${currentId}`;
+    link.parentElement.classList.toggle("active", isActive);
+  });
+}
+
+window.addEventListener("scroll", updateActiveNavigation, { passive: true });
+window.addEventListener("resize", updateActiveNavigation);
+updateActiveNavigation();
