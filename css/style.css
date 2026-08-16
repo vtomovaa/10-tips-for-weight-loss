@@ -1,3 +1,15 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: "Inter", sans-serif;
 }
@@ -385,6 +397,11 @@ footer img {
     align-items: stretch;
 }
 
+.footer > *,
+.footer-cont > * {
+    min-width: 0;
+}
+
 .additional-links {
     display: flex;
     flex-direction: column;
@@ -466,9 +483,9 @@ textarea:focus {
     }
 
     .footer {
-        column-gap: 0px;
+        column-gap: 0;
         width: 80%;
-        grid-template-columns: 780px 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
 
     .footer-cont {
