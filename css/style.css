@@ -390,6 +390,10 @@ footer img {
     margin: 0 auto;
 }
 
+.footer + .disclaimer {
+    margin-top: 30px;
+}
+
 .footer-cont {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -499,7 +503,9 @@ textarea:focus {
     }
 
     .navbar {
-        left: -34px;
+        left: 0;
+        right: 0;
+        width: auto;
     }
 
     .navbar ul {
