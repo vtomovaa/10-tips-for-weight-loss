@@ -853,3 +853,26 @@ textarea:focus {
         width: 100%;
     }
 }
+
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+    .footer {
+        width: 90%;
+        grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+        align-items: start;
+        column-gap: 36px;
+    }
+
+    .footer-cont {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 28px;
+    }
+
+    .footer-cont .links:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .footer-cont a,
+    .footer-cont p {
+        overflow-wrap: anywhere;
+    }
+}
