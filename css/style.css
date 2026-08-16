@@ -373,7 +373,7 @@ footer img {
     justify-items: stretch;
     align-items: center;
     width: 70%;
-    margin: 0 auto;
+    margin: 30px auto 0;
     column-gap: 30px;
 }
 
@@ -496,7 +496,6 @@ textarea:focus {
 @media screen and (max-width: 1024px) {
     .footer {
         grid-template-columns: 400px 1fr;
-        margin-top: 25px;
     }
 
     .navbar {
@@ -574,8 +573,10 @@ textarea:focus {
     }
 
     .footer-cont {
-        justify-items: stretch;
-        grid-template-columns: 1fr 1fr 1fr;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 30px auto;
     }
 
     .col-3 {
@@ -721,13 +722,6 @@ textarea:focus {
 
     footer img {
         width: 36%;
-        margin: 30px auto;
-    }
-
-    .footer-cont {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
         margin: 30px auto;
     }
 
