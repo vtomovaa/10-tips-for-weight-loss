@@ -763,9 +763,17 @@ textarea:focus {
 }
 
 /* Interaction and responsive layout fixes */
+.main-content > * {
+    min-width: 0;
+}
+
 .col-1,
 .col-3 {
     align-self: start;
+}
+
+.col-3 {
+    width: 100%;
 }
 
 .col-2 h3[id^="tip"],
